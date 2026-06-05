@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Performance Analyzer</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="hero-tag">AI-Powered</div>
+      <h1>Student Performance<br/><span class="accent">Analyzer</span></h1>
+      <p class="subtitle">Enter your marks and get instant GPA, grade, and personalized career advice.</p>
+    </div>
+
+    <form action="analyze" method="POST" class="form-card" id="mainForm">
+      <div class="form-group">
+        <label for="studentName">Student Name</label>
+        <input type="text" id="studentName" name="studentName" placeholder="e.g. Sowmya" required />
+      </div>
+
+      <div class="subjects-section">
+        <div class="section-header">
+          <h3>Subjects</h3>
+          <button type="button" class="add-btn" onclick="addSubject()">+ Add Subject</button>
+        </div>
+
+        <div id="subjectsContainer">
+          <!-- Subject rows added by JS -->
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Analyze Performance →</button>
+    </form>
+
+    <footer>
+      <p>Built with Java Servlets + JSP &nbsp;|&nbsp; By <strong>sowmya849</strong> &nbsp;|&nbsp; AI &amp; Data Science Project</p>
+    </footer>
+  </div>
+
+  <script>
+    const defaultSubjects = ["Mathematics", "Data Structures", "Machine Learning", "Python Programming", "Database Management"];
+
+    function addSubject(name = "") {
+      const container = document.getElementById("subjectsContainer");
+      const index = container.children.length;
+      const div = document.createElement("div");
+      div.className = "subject-row";
+      div.innerHTML = `
+        <input type="text" name="subjectName" placeholder="Subject name" value="${name}" required />
+        <input type="number" name="marks" placeholder="Marks" min="0" max="1000" required />
+        <input type="number" name="maxMarks" placeholder="Max" min="1" max="1000" value="100" required />
+        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✕</button>
+      `;
+      container.appendChild(div);
+    }
+
+    // Load 5 default subjects
+    defaultSubjects.forEach(s => addSubject(s));
+  </script>
+</body>
+</html>
